@@ -1,14 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Projects from "./components/projects";
 import Stacks from "./components/stacks";
 import Contact from "./components/contact";
-import Image from "next/image";
-import { Menu, X } from "lucide-react"; // Ícones para abrir/fechar menu
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false); // Estado do menu
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 sm:p-20 text-center pt-40 sm:pt-32"> {/* Ajustado o padding-top */}
