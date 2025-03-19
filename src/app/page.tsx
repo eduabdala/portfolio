@@ -37,7 +37,6 @@ export default function Home() {
       {/* Seções */}
       <div id="stacks"><Stacks /></div>
       <div id="projects"><Projects /></div>
-      <div id="contact"><Contact /></div>
 
     </div>
   );
