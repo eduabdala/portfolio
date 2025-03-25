@@ -1,0 +1,36 @@
+[
+    {
+      "title": "Card Nft",
+      "description": "Project to study the creation of a card using only CSS and HTML.",
+      "link": "https://nft-preview-card-challenge-ten.vercel.app/",
+      "repoLink": "https://github.com/eduabdala/NFT-preview-card-challenge",
+      "imageUrl": "/imgs/card_nft.png",
+      "stacks": ["HTML", "CSS"]
+    },
+    {
+      "title": "QR Code Card",
+      "description": "Challenge to create a card from Front-End Mentor using only CSS and HTML.",
+      "link": "https://qr-code-component-ruby-chi.vercel.app/",
+      "repoLink": "https://github.com/eduabdala/qr-code-component",
+      "imageUrl": "/imgs/card_qr.png",
+      "stacks": ["HTML", "CSS"]
+    },
+    {
+      "title": "Serial Communication Flutter",
+      "description": "Flutter app for serial communication on Windows or Linux.",
+      "link": "https://github.com/eduardosilvaabdala/flutter-pdf-reader",
+      "repoLink": "https://github.com/eduabdala/NFT-preview-card-challenge",
+      "imageUrl": "/imgs/flutter.png",
+      "stacks": ["Flutter", "Dart"]
+    },
+    {
+      "title": "Sample Manager",
+      "description": "Este é um projeto para gerenciar amostras utilizando Spring Boot, JPA, RabbitMQ e PostgreSQL.",
+      "link": "https://github.com/eduabdala/sample-manager",
+      "repoLink": "https://github.com/eduabdala/sample-manager",
+      "imageUrl": "/imgs/spring.svg",
+      "stacks": ["Java", "Spring Boot", "RabbitMQ", "Python", "PostgreSQL"]
+    }
+
+  ]
+  

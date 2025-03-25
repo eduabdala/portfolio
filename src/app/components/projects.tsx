@@ -1,64 +1,32 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaGithub, FaLink } from "react-icons/fa";
 
 export default function Projects() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedStack, setSelectedStack] = useState("All");
   const [visibleProjects, setVisibleProjects] = useState(3);
   const [expanded, setExpanded] = useState(false);
   const [visibleStacks, setVisibleStacks] = useState(6);
-  const projects = [
-    {
-      title: "Card Nft",
-      description: "Project to study the creation of a card using only CSS and HTML.",
-      link: "https://nft-preview-card-challenge-ten.vercel.app/",
-      repoLink: "https://github.com/eduardosilvaabdala/card-nft",
-      imageUrl: "/imgs/card_nft.png",
-      stacks: ["HTML", "CSS"],
-    },
-    {
-      title: "QR Code Card",
-      description: "Challenge to create a card from Front-End Mentor using only CSS and HTML.",
-      link: "https://qr-code-component-ruby-chi.vercel.app/",
-      repoLink: "https://github.com/eduardosilvaabdala/qr-code-card",
-      imageUrl: "/imgs/card_qr.png",
-      stacks: ["HTML", "CSS"],
-    },
-    {
-      title: "Serial Communication Flutter",
-      description: "Flutter app for serial communication on Windows or Linux.",
-      link: "https://github.com/eduardosilvaabdala/flutter-pdf-reader",
-      repoLink: "https://github.com/eduardosilvaabdala/flutter-pdf-reader",
-      imageUrl: "/imgs/flutter.png",
-      stacks: ["Flutter", "Dart"],
-    },
-    {
-      title: "Card Nft",
-      description: "Project to study the creation of a card using only CSS and HTML.",
-      link: "https://nft-preview-card-challenge-ten.vercel.app/",
-      repoLink: "https://github.com/eduardosilvaabdala/card-nft",
-      imageUrl: "/imgs/card_nft.png",
-      stacks: ["Sphynx", "Next.js"],
-    },
-    {
-      title: "QR Code Card",
-      description: "Challenge to create a card from Front-End Mentor using only CSS and HTML.",
-      link: "https://qr-code-component-ruby-chi.vercel.app/",
-      repoLink: "https://github.com/eduardosilvaabdala/qr-code-card",
-      imageUrl: "/imgs/card_qr.png",
-      stacks: ["Java", "Angular"],
-    },
-    {
-      title: "Serial Communication Flutter",
-      description: "Flutter app for serial communication on Windows or Linux.",
-      link: "https://github.com/eduardosilvaabdala/flutter-pdf-reader",
-      repoLink: "https://github.com/eduardosilvaabdala/flutter-pdf-reader",
-      imageUrl: "/imgs/flutter.png",
-      stacks: ["Python", "Docker"],
-    },
-  ];
+
+  type Project = {
+    title: string;
+    description: string;
+    link: string;
+    repoLink: string;
+    imageUrl: string;
+    stacks: string[];
+  };
+
+  useEffect(() => {
+    fetch("data/projects.json")
+      .then((response) => response.json())
+      .then((data: Project[]) => setProjects(data))
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, []);
+  
 
   const stacks = ["All", ...new Set(projects.flatMap((p) => p.stacks))];
 
@@ -68,14 +36,6 @@ export default function Projects() {
       : projects.filter((p) => p.stacks.includes(selectedStack));
 
   const projectsToShow = filteredProjects.slice(0, visibleProjects);
-
-  const handleShowMoreProjects = () => {
-    setVisibleProjects(prev => prev + 3);
-  };
-
-  const handleShowLessProjects = () => {
-    setVisibleProjects(3);
-  };
 
   const toggleExpandedProjects = () => {
     setExpanded(!expanded);
@@ -87,7 +47,7 @@ export default function Projects() {
   };
 
   const handleShowMoreStacks = () => {
-    setVisibleStacks(prev => prev + 6);
+    setVisibleStacks((prev) => prev + 6);
   };
 
   const handleShowLessStacks = () => {
@@ -183,7 +143,6 @@ export default function Projects() {
 
               {/* Links with icons at the bottom */}
               <div className="flex justify-center gap-4 mt-4">
-                {/* Visit Project Link */}
                 <a
                   href={project.link}
                   target="_blank"
@@ -192,8 +151,6 @@ export default function Projects() {
                 >
                   <FaLink size={18} /> Project
                 </a>
-
-                {/* View Repository Link */}
                 <a
                   href={project.repoLink}
                   target="_blank"
@@ -220,4 +177,3 @@ export default function Projects() {
     </section>
   );
 }
-  

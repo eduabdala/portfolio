@@ -2,7 +2,6 @@
 
 import Projects from "./components/projects";
 import Stacks from "./components/stacks";
-import Contact from "./components/contact";
 
 export default function Home() {
 
