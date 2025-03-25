@@ -2,7 +2,6 @@
 
 import Projects from "./components/projects";
 import Stacks from "./components/stacks";
-import Contact from "./components/contact";
 
 export default function Home() {
 
@@ -37,7 +36,6 @@ export default function Home() {
       {/* Seções */}
       <div id="stacks"><Stacks /></div>
       <div id="projects"><Projects /></div>
-      <div id="contact"><Contact /></div>
 
     </div>
   );
