@@ -1,8 +1,18 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, JSX } from "react";
 import Image from "next/image";
 import { FaGithub, FaLink } from "react-icons/fa";
+import {
+  SiHtml5,
+  SiCss3,
+  SiDart,
+  SiFlutter,
+  SiSpringboot,
+  SiRabbitmq,
+  SiPython,
+  SiPostgresql,
+} from "react-icons/si";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -20,13 +30,24 @@ export default function Projects() {
     stacks: string[];
   };
 
+  const stackIcons: { [key: string]: JSX.Element } = {
+    HTML: <SiHtml5 className="text-orange-600" />,
+    CSS: <SiCss3 className="text-blue-600" />,
+    Dart: <SiDart className="text-cyan-500" />,
+    Flutter: <SiFlutter className="text-blue-400" />,
+    Java:<SiSpringboot/>,
+    "Spring Boot": <SiSpringboot className="text-green-600" />,
+    RabbitMQ: <SiRabbitmq className="text-orange-500" />,
+    Python: <SiPython className="text-yellow-500" />,
+    PostgreSQL: <SiPostgresql className="text-blue-800" />,
+  };
+
   useEffect(() => {
     fetch("data/projects.json")
       .then((response) => response.json())
       .then((data: Project[]) => setProjects(data))
       .catch((error) => console.error("Error fetching projects:", error));
   }, []);
-  
 
   const stacks = ["All", ...new Set(projects.flatMap((p) => p.stacks))];
 
@@ -72,7 +93,10 @@ export default function Projects() {
                 : "bg-gray-200 dark:bg-blue-900 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-blue-600"
             }`}
           >
-            {stack}
+            <span className="inline-flex items-center gap-2">
+              {stackIcons[stack] || null}
+              {stack}
+            </span>
           </button>
         ))}
       </div>
@@ -134,9 +158,10 @@ export default function Projects() {
                 {project.stacks.map((stack, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full"
+                    className="px-3 py-1 text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full inline-flex items-center gap-2"
                   >
-                    #{stack}
+                    {stackIcons[stack] || null}
+                    {stack}
                   </span>
                 ))}
               </div>
