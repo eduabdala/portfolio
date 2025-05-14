@@ -12,9 +12,6 @@ import {
   SiRabbitmq,
   SiPython,
   SiPostgresql,
-  SiJouav,
-  SiJavascript,
-  SiCocacola
 } from "react-icons/si";
 
 export default function Projects() {
