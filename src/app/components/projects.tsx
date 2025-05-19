@@ -4,14 +4,8 @@ import { useState, useEffect, JSX } from "react";
 import Image from "next/image";
 import { FaGithub, FaLink } from "react-icons/fa";
 import {
-  SiHtml5,
-  SiCss3,
-  SiDart,
-  SiFlutter,
-  SiSpringboot,
-  SiRabbitmq,
-  SiPython,
-  SiPostgresql,
+  SiHtml5, SiCss3, SiDart, SiFlutter,
+  SiSpringboot, SiRabbitmq, SiPython, SiPostgresql
 } from "react-icons/si";
 
 export default function Projects() {
@@ -35,7 +29,7 @@ export default function Projects() {
     CSS: <SiCss3 className="text-blue-600" />,
     Dart: <SiDart className="text-cyan-500" />,
     Flutter: <SiFlutter className="text-blue-400" />,
-    Java:<SiSpringboot/>,
+    Java: <SiSpringboot />,
     "Spring Boot": <SiSpringboot className="text-green-600" />,
     RabbitMQ: <SiRabbitmq className="text-orange-500" />,
     Python: <SiPython className="text-yellow-500" />,
@@ -44,53 +38,38 @@ export default function Projects() {
 
   useEffect(() => {
     fetch("data/projects.json")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data: Project[]) => setProjects(data))
-      .catch((error) => console.error("Error fetching projects:", error));
+      .catch((err) => console.error("Failed to load projects:", err));
   }, []);
 
-  const stacks = ["All", ...new Set(projects.flatMap((p) => p.stacks))];
-
-  const filteredProjects =
-    selectedStack === "All"
-      ? projects
-      : projects.filter((p) => p.stacks.includes(selectedStack));
-
+  const stacks = ["All", ...new Set(projects.flatMap(p => p.stacks))];
+  const filteredProjects = selectedStack === "All"
+    ? projects
+    : projects.filter(p => p.stacks.includes(selectedStack));
   const projectsToShow = filteredProjects.slice(0, visibleProjects);
 
   const toggleExpandedProjects = () => {
     setExpanded(!expanded);
-    if (!expanded) {
-      setVisibleProjects(filteredProjects.length);
-    } else {
-      setVisibleProjects(3);
-    }
+    setVisibleProjects(expanded ? 3 : filteredProjects.length);
   };
 
-  const handleShowMoreStacks = () => {
-    setVisibleStacks((prev) => prev + 6);
-  };
-
-  const handleShowLessStacks = () => {
-    setVisibleStacks(6);
-  };
+  const handleShowMoreStacks = () => setVisibleStacks(prev => prev + 6);
+  const handleShowLessStacks = () => setVisibleStacks(6);
 
   return (
-    <section id="projects" className="min-h-screen p-8 sm:p-20 text-center">
-      <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-8">
-        My Projects
-      </h1>
+    <section id="projects" className="min-h-screen p-6 sm:p-10 text-center">
 
-      {/* Filter Menu */}
+      {/* Filtro por stacks */}
       <div className="flex flex-wrap justify-center gap-3 mb-6">
-        {stacks.slice(0, visibleStacks).map((stack) => (
+        {stacks.slice(0, visibleStacks).map(stack => (
           <button
             key={stack}
             onClick={() => setSelectedStack(stack)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            className={`px-4 py-2 rounded-2xl text-sm font-medium transition shadow-sm ${
               selectedStack === stack
                 ? "bg-blue-700 text-white"
-                : "bg-gray-200 dark:bg-blue-900 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-blue-600"
+                : "bg-gray-100 dark:bg-blue-900 text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-blue-700"
             }`}
           >
             <span className="inline-flex items-center gap-2">
@@ -101,12 +80,12 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* Show More / Show Less Button for Stacks */}
-      <div className="flex justify-center mt-6">
+      {/* Botões de mostrar mais/menos stacks */}
+      <div className="flex justify-center mb-10">
         {visibleStacks < stacks.length && (
           <button
             onClick={handleShowMoreStacks}
-            className="px-6 py-2 rounded-lg text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition"
+            className="px-6 py-2 rounded-xl text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition"
           >
             Show More Stacks
           </button>
@@ -114,51 +93,48 @@ export default function Projects() {
         {visibleStacks > 6 && (
           <button
             onClick={handleShowLessStacks}
-            className="px-6 py-2 rounded-lg text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition ml-4"
+            className="px-6 py-2 rounded-xl text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition ml-4"
           >
             Show Less Stacks
           </button>
         )}
       </div>
 
-      {/* Filtered Projects Grid */}
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-4">
+      {/* Grid de projetos */}
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {projectsToShow.map((project, index) => (
-          <a
+          <div
             key={index}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden dark:hover:bg-blue-900 shadow-lg hover:shadow-2xl transition transform hover:scale-105 flex flex-col h-full"
+            className="flex flex-col rounded-2xl p-4 bg-white/70 dark:bg-white/10 border border-blue-800/30 dark:border-blue-400/20 shadow-md hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"
           >
-            {/* Project Image */}
+            {/* Imagem do projeto */}
             {project.imageUrl && (
-              <div className="relative w-full h-48">
+              <div className="relative w-full h-48 rounded-xl overflow-hidden mb-4">
                 <Image
                   src={project.imageUrl}
                   alt={project.title}
                   layout="fill"
                   objectFit="cover"
-                  className="group-hover:opacity-80 transition"
+                  className="transition group-hover:opacity-80"
                 />
               </div>
             )}
 
-            {/* Project Information */}
-            <div className="p-6 flex flex-col flex-grow">
-              <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+            {/* Conteúdo do projeto */}
+            <div className="flex flex-col flex-grow">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 {project.title}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mt-2 mb-2 flex-grow">
+              <p className="text-gray-600 dark:text-gray-300 flex-grow mb-4">
                 {project.description}
               </p>
 
-              {/* Stacks at the bottom of the card */}
-              <div className="flex flex-wrap gap-2 mt-auto">
+              {/* Stacks utilizadas */}
+              <div className="flex flex-wrap gap-2 mb-4">
                 {project.stacks.map((stack, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full inline-flex items-center gap-2"
+                    className="px-3 py-1 text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full inline-flex items-center gap-2"
                   >
                     {stackIcons[stack] || null}
                     {stack}
@@ -166,35 +142,35 @@ export default function Projects() {
                 ))}
               </div>
 
-              {/* Links with icons at the bottom */}
-              <div className="flex justify-center gap-4 mt-4">
+              {/* Links */}
+              <div className="flex justify-center gap-4">
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition flex items-center gap-2"
+                  className="px-4 py-2 rounded-xl bg-blue-700 text-white hover:bg-blue-500 transition flex items-center gap-2"
                 >
-                  <FaLink size={18} /> Project
+                  <FaLink size={18} /> View
                 </a>
                 <a
                   href={project.repoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg text-sm font-medium bg-black-800 dark:bg-gray-950 text-white hover:bg-gray-700 dark:hover:bg-gray-600 transition flex items-center gap-2"
+                  className="px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-gray-700 transition flex items-center gap-2"
                 >
                   <FaGithub size={18} /> Code
                 </a>
               </div>
             </div>
-          </a>
+          </div>
         ))}
       </div>
 
-      {/* Show More / Show Less Button for Projects */}
-      <div className="flex justify-center mt-6">
+      {/* Botão de mostrar mais projetos */}
+      <div className="flex justify-center mt-10">
         <button
           onClick={toggleExpandedProjects}
-          className="px-6 py-2 rounded-lg text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition"
+          className="px-6 py-2 rounded-xl text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition"
         >
           {expanded ? "Show Less Projects" : "Show More Projects"}
         </button>
