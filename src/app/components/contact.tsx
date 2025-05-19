@@ -22,7 +22,7 @@ export default function Contact() {
   return (
     <section className="mt-20 text-center">
       <h2 className="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-6">
-        Let's connect
+        Let&apos;s connect
       </h2>
 
       <p className="text-gray-700 dark:text-gray-300 mb-8 max-w-xl mx-auto">
