@@ -13,6 +13,9 @@ export default function Stacks() {
 
   return (
     <section className="mt-12 text-center">
+      <h2 className="text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+          Tech Stacks
+      </h2>
       <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 justify-center">
         {stacks.map((stack, index) => (
           <a

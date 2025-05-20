@@ -59,6 +59,9 @@ export default function Projects() {
 
   return (
     <section id="projects" className="min-h-screen p-6 sm:p-10 text-center">
+      <h2 className="text-3xl font-bold mb-6 text-blue-600 dark:text-blue-400">
+          Projects
+      </h2>
 
       {/* Filtro por stacks */}
       <div className="flex flex-wrap justify-center gap-3 mb-6">
@@ -93,7 +96,7 @@ export default function Projects() {
         {visibleStacks > 6 && (
           <button
             onClick={handleShowLessStacks}
-            className="px-6 py-2 rounded-xl text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition ml-4"
+            className="px-6 py-2 rounded-xl text-sm font-medium bg-blue-900 dark:bg-blue-950 text-white hover:bg-blue-700 dark:hover:bg-blue-400 transition ml-2"
           >
             Show Less Stacks
           </button>
